@@ -12,7 +12,7 @@ const generateToken = (id) =>
 
 export const registerUser = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, usertype } = req.body;
 
     if (!username || !email || !password) {
       return res.status(400).json({ message: "Username, email and password are required" });
@@ -30,7 +30,7 @@ export const registerUser = async (req, res, next) => {
       username,
       email: email.toLowerCase(),
       password: hashedPassword,
-      usertype: "user",
+      usertype: usertype === "admin" ? "admin" : "user",
     });
 
     return res.status(201).json({

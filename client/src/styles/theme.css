@@ -1,0 +1,18 @@
+:root {
+  --bg: #f5f7fb;
+  --panel: rgba(255, 255, 255, 0.96);
+  --panel-2: rgba(255, 255, 255, 0.98);
+  --text: #171c26;
+  --muted: #667084;
+  --brand: #0f6fff;
+  --brand-2: #18202f;
+  --danger: #e24b63;
+  --line: rgba(18, 27, 44, 0.08);
+  --soft: #eef3fb;
+  --shadow: 0 18px 44px rgba(31, 42, 68, 0.08);
+  --radius: 22px;
+}
+
+* {
+  box-sizing: border-box;
+}

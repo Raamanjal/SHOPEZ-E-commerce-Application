@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 
 import connectDB from "./config/db.js";
+import { Admin, Product } from "./models/Schema.js";
+import { sampleBanner, sampleProducts } from "./data/sampleData.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -54,9 +56,25 @@ const PORT = process.env.PORT || 5000;
 app.use(notFound);
 app.use(errorHandler);
 
+const ensureSeedData = async () => {
+  const [productCount, adminConfig] = await Promise.all([
+    Product.countDocuments(),
+    Admin.findOne(),
+  ]);
+
+  if (productCount === 0) {
+    await Product.insertMany(sampleProducts);
+  }
+
+  if (!adminConfig) {
+    await Admin.create(sampleBanner);
+  }
+};
+
 const startServer = async () => {
   try {
     await connectDB();
+    await ensureSeedData();
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
