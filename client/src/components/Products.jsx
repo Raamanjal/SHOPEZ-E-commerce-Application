@@ -30,13 +30,15 @@ export default function Products({ products, title = "All Products", adminMode =
                   <span>{product.sizes?.join(", ") || "No sizes"}</span>
                 </div>
                 <div className="card-actions">
-                  <Link className="primary-button" to={`/product/${product._id}`}>
-                    View
-                  </Link>
                   {!adminMode && (
-                    <Link className="secondary-button icon-only-mobile" to={`/product/${product._id}`}>
-                      <ShoppingCart size={16} /> Add
-                    </Link>
+                    <>
+                      <Link className="primary-button" to={`/product/${product._id}`}>
+                        View
+                      </Link>
+                      <Link className="secondary-button icon-only-mobile" to={`/product/${product._id}`}>
+                        <ShoppingCart size={16} /> Add
+                      </Link>
+                    </>
                   )}
                   {adminMode && (
                     <>

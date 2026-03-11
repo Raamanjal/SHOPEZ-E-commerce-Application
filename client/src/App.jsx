@@ -34,11 +34,12 @@ function ProtectedRoute({ children, adminOnly = false }) {
 function AppShell() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isAuthRoute = location.pathname === "/auth";
   const { status } = useGeneralContext();
 
   return (
     <div className={`app-shell ${isAdminRoute ? "admin-shell" : ""}`}>
-      <Navbar adminMode={isAdminRoute} />
+      {!isAuthRoute && <Navbar adminMode={isAdminRoute} />}
       <main className="app-main">
         {(status.error || status.success) && (
           <div className={`app-status ${status.error ? "error" : "success"}`}>
@@ -118,7 +119,7 @@ function AppShell() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && !isAuthRoute && <Footer />}
     </div>
   );
 }
